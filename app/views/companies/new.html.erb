@@ -1,5 +1,7 @@
 <div class="container py-5">
-  <h3>New Company</h3>
-  <%= link_to "< Companies", companies_path %>
+  <div class="companies">
+    <h3>New Company</h3>
+    <%= link_to "Companies", companies_path, class: "btn btn-sm btn-primary" %>
+  </div>
   <%= render "form" %>
 </div>
