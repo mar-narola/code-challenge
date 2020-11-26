@@ -4,7 +4,24 @@ class Company < ApplicationRecord
   #validations
   validate :validate_company_email, if: :email? ##custom_validation
 
+  ##callbacks
+  before_save :get_city_state_from_zipcode, if: :will_save_change_to_zip_code?
+
+  ##methods
+  def address
+    "#{city}, #{state}" if (city && state)
+  end
+
   private
+
+  ##methods
+  def get_city_state_from_zipcode
+    address = ZipCodes.identify(zip_code)
+    unless address.nil?
+      city = address[:city]
+      state = address[:state_code]
+    end
+  end
 
   ##custom_validation method
   def validate_company_email
