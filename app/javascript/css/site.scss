@@ -1,6 +1,35 @@
 @import "trix/dist/trix";
 @import "~bootstrap/scss/bootstrap.scss";
+@import "@fortawesome/fontawesome-free";
 
 .pointer {
   cursor: pointer;
+}
+.form-group .invalid-feedback{
+  display: block;
+}
+.field_with_errors input {
+  border: 1px solid red;
+}
+.companies h3 {
+  float: left;
+}
+.companies{
+  position: relative;
+  display: block;
+}
+.companies a {
+  float: right;
+}
+.fa-eye{
+  color: $info;
+}
+.fa-edit{
+  color: $warning;
+}
+.fa-trash{
+  color: $danger;
+}
+.detail{
+  margin-top: 40px;
 }

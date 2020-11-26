@@ -30,7 +30,12 @@ class CompaniesController < ApplicationController
     else
       render :edit
     end
-  end  
+  end
+
+  def destroy
+    @company.destroy
+    redirect_to companies_path, notice: "Destroyed successfully!"
+  end
 
   private
 
@@ -50,5 +55,4 @@ class CompaniesController < ApplicationController
   def set_company
     @company = Company.find(params[:id])
   end
-  
 end

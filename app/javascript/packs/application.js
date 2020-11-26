@@ -9,8 +9,8 @@ require("@rails/activestorage").start();
 require("channels");
 
 import "css/site";
-
 import "bootstrap";
+import "@fortawesome/fontawesome-free/js/all";
 
 require("trix");
 require("@rails/actiontext");
