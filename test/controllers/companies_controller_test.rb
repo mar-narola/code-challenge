@@ -21,7 +21,8 @@ class CompaniesControllerTest < ApplicationSystemTestCase
     assert_text @company.name
     assert_text @company.phone
     assert_text @company.email
-    assert_text "City, State"
+    address = @company.address
+    assert_text "#{address[:city]}, #{address[:state]}"
   end
 
   test "Update" do
@@ -32,30 +33,69 @@ class CompaniesControllerTest < ApplicationSystemTestCase
       fill_in("company_zip_code", with: "93009")
       click_button "Update Company"
     end
-
-    assert_text "Changes Saved"
-
+    assert_text 'Changes Saved'
     @company.reload
     assert_equal "Updated Test Company", @company.name
     assert_equal "93009", @company.zip_code
   end
 
-  test "Create" do
+  #create action with valid email
+  test "Create with valid email" do
     visit new_company_path
 
     within("form#new_company") do
       fill_in("company_name", with: "New Test Company")
       fill_in("company_zip_code", with: "28173")
       fill_in("company_phone", with: "5553335555")
-      fill_in("company_email", with: "new_test_company@test.com")
+      fill_in("company_email", with: "new_test_company@getmainstreet.com")
       click_button "Create Company"
     end
-
     assert_text "Saved"
-
     last_company = Company.last
     assert_equal "New Test Company", last_company.name
     assert_equal "28173", last_company.zip_code
   end
 
+  #create action with invalid email
+  test "Create with invalid email" do
+    visit new_company_path
+
+    total_companies = Company.count
+    within("form#new_company") do
+      fill_in("company_name", with: "New Test Company")
+      fill_in("company_zip_code", with: "28173")
+      fill_in("company_phone", with: "5553335555")
+      fill_in("company_email", with: "new_test_company@street.com")
+      click_button "Create Company"
+    end
+    assert_text 'Email is not matching with specified format!'
+    assert_equal Company.count, total_companies
+  end
+
+  #create action with blank email
+  test "Create with blank email" do
+    visit new_company_path
+
+    total_companies = Company.count
+    within("form#new_company") do
+      fill_in("company_name", with: "New Test Company")
+      fill_in("company_zip_code", with: "28173")
+      fill_in("company_phone", with: "5553335555")
+      click_button "Create Company"
+    end
+    assert_text "Saved"
+    assert_equal Company.count, (total_companies + 1)
+  end
+
+  #destroy action
+  test "Destroy" do
+    visit companies_path
+
+    companies_count = Company.count
+    accept_confirm do
+      first(:css, ".delete").click
+    end
+    assert_text "Destroyed successfully!"
+    assert_equal (companies_count - 1), Company.count
+  end
 end
