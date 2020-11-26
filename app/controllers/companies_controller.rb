@@ -49,6 +49,7 @@ class CompaniesController < ApplicationController
       :phone,
       :email,
       :owner_id,
+      :brand_color,
       services: []
     )
   end

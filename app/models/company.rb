@@ -2,6 +2,7 @@ class Company < ApplicationRecord
   has_rich_text :description
 
   #validations
+  validates :brand_color, :zip_code, presence: true
   validate :validate_company_email, if: :email? ##custom_validation
 
   ##callbacks

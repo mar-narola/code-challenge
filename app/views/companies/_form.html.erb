@@ -74,6 +74,18 @@
     </div>
 
     <div class="row my-lg-3">
+      <div class="col-lg-3">
+        <label><strong>Brand Color</strong><br><small class="text-muted">Brand color of company</small></label>
+      </div>
+      <div class="col-lg offset-lg-1">
+          <div data-controller="services" class="form-group">
+            <%= f.color_field :brand_color, class: "form-control" %>
+            <%= has_error(f.object, :brand_color) %>
+          </div>
+      </div>
+    </div>
+
+    <div class="row my-lg-3">
       <div class="col">
         <div class="form-group">
           <%= f.submit class: "btn btn-success submit" %>
